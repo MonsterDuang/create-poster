@@ -41,8 +41,13 @@ function updateScaleIndicator() {
 	updateElementSelection();
 }
 
+function isSmallScreen() {
+	return window.innerWidth < 768;
+}
+
 // 鼠标滚轮缩放
 canvas.addEventListener('wheel', (e) => {
+	if (isSmallScreen()) return;
 	e.preventDefault();
 	const rect = canvas.getBoundingClientRect();
 	const mouseX = (e.clientX - rect.left - canvasOffsetX) / scale;
@@ -305,12 +310,30 @@ let canvasOffsetX = 0,
 	canvasOffsetY = 0;
 
 // 鼠标事件
-canvas.addEventListener('mousedown', startDragging);
-canvas.addEventListener('mousemove', drag);
-canvas.addEventListener('mouseup', stopDragging);
-canvas.addEventListener('touchstart', startDragging);
-canvas.addEventListener('touchmove', drag);
-canvas.addEventListener('touchend', stopDragging);
+canvas.addEventListener('mousedown', (e) => {
+	if (isSmallScreen()) return;
+	startDragging(e);
+});
+canvas.addEventListener('mousemove', (e) => {
+	if (isSmallScreen()) return;
+	drag(e);
+});
+canvas.addEventListener('mouseup', (e) => {
+	if (isSmallScreen()) return;
+	stopDragging(e);
+});
+canvas.addEventListener('touchstart', (e) => {
+	if (isSmallScreen()) return;
+	startDragging(e);
+});
+canvas.addEventListener('touchmove', (e) => {
+	if (isSmallScreen()) return;
+	drag(e);
+});
+canvas.addEventListener('touchend', (e) => {
+	if (isSmallScreen()) return;
+	stopDragging(e);
+});
 
 function startDragging(e) {
 	e.preventDefault();
