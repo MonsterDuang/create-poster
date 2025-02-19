@@ -1,0 +1,264 @@
+body {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	margin: 0;
+	padding: 20px;
+	background-color: #121212;
+	color: #e0e0e0;
+	overflow-x: hidden; /* 防止横向滚动条 */
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	box-sizing: border-box;
+	scrollbar-width: auto; /* Firefox */
+	scrollbar-color: auto; /* Firefox */
+}
+
+.container {
+	width: 100%; /* 增加宽度 */
+	height: 100%;
+	padding: 20px;
+	box-sizing: border-box;
+	background-color: #1e1e1e;
+	border-radius: 12px;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+	overflow: hidden; /* 防止滚动条 */
+	display: flex;
+	flex-direction: column;
+}
+
+h1 {
+	text-align: center;
+	color: #ffffff;
+	margin-top: 0;
+}
+
+.editor {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	flex: 1;
+	overflow-y: auto; /* 竖向滚动 */
+}
+
+.tools {
+	background-color: #2c2c2c;
+	padding: 15px;
+	border-radius: 12px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	flex: 1;
+	overflow-y: auto; /* 竖向滚动 */
+}
+
+.tool-section {
+	margin-bottom: 15px;
+}
+
+.tool-section h2 {
+	margin-top: 0;
+	color: #b0b0b0;
+}
+
+input,
+select,
+button {
+	display: block;
+	width: calc(100% - 20px); /* 确保不超出父元素 */
+	margin: 10px auto; /* 增加间距 */
+	padding: 8px;
+	border: 1px solid #3a3a3a;
+	border-radius: 8px;
+	font-size: 14px;
+	background-color: #2c2c2c;
+	color: #e0e0e0;
+}
+
+input:focus,
+select:focus,
+button:focus {
+	outline: none;
+	border-color: #80bdff;
+	box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}
+
+button {
+	display: block;
+	width: auto;
+	margin: 10px 0 10px auto;
+	padding: 5px 10px;
+	background-color: #3a3a3a;
+	color: #e0e0e0;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 14px;
+	text-align: center;
+}
+
+button:hover {
+	background-color: #555555; /* 调整按钮悬停背景色 */
+}
+
+#emojiPicker {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 5px;
+	max-height: 3.6em; /* 限制显示为最多 3 行 */
+	overflow: hidden;
+	position: relative;
+}
+
+#emojiPicker.expanded {
+	max-height: none; /* 展开后显示所有行 */
+}
+
+.emoji {
+	font-size: 24px;
+	cursor: pointer;
+}
+
+.canvas-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #2c2c2c;
+	border-radius: 12px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	padding: 15px;
+	overflow: hidden; /* 防止滚动条 */
+	position: relative; /* 为了定位删除按钮 */
+	width: fit-content; /* 宽度跟随画布变化 */
+	height: 100%; /* 高度与 .tools 高度一致 */
+	margin: 0 auto; /* 居中 */
+	flex: 3;
+	max-height: calc(100% - 30px); /* 最大高度与 .tools 高度一致 */
+	position: relative; /* 为了定位缩放等级角标 */
+}
+
+.canvas-wrapper {
+	position: relative;
+	width: fit-content;
+	height: fit-content;
+}
+
+.scale-indicator {
+	position: absolute;
+	bottom: 10px;
+	right: 10px;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #ffffff;
+	padding: 5px 10px;
+	border-radius: 12px;
+	font-size: 12px;
+}
+
+#posterCanvas {
+	background-color: #1e1e1e;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+	cursor: move;
+	border-radius: 8px;
+	width: auto; /* 画布宽度自动调整 */
+	height: auto; /* 画布高度自动调整 */
+	max-width: 100%;
+	max-height: 100%;
+}
+
+#downloadBtn {
+	display: block;
+	margin: 15px auto 0;
+	width: 100%;
+	padding: 8px 16px;
+	background-color: #000000; /* 调整按钮背景色为黑色 */
+	color: #ffffff; /* 调整按钮文字颜色 */
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	font-size: 14px;
+}
+
+#downloadBtn:hover {
+	background-color: #111; /* 调整按钮悬停背景色 */
+}
+
+.selected {
+	outline: 2px solid #007bff;
+}
+
+.delete-btn {
+	position: absolute;
+	top: 5px; /* 调整为元素的右上角 */
+	right: 5px; /* 调整为元素的右上角 */
+	background-color: #ff4d4d;
+	color: white;
+	border: none;
+	border-radius: 50%;
+	width: 20px;
+	height: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	font-size: 12px;
+	z-index: 10;
+	margin: 0;
+}
+
+.delete-btn:hover {
+	background-color: #ff1a1a;
+}
+
+.resize-indicator {
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.7);
+	color: #ffffff;
+	padding: 5px 10px;
+	border-radius: 12px;
+	font-size: 12px;
+	display: none; /* 初始隐藏 */
+}
+
+@media (min-width: 768px) {
+	.editor {
+		flex-direction: row;
+	}
+
+	.tools {
+		flex: 1;
+	}
+
+	.canvas-container {
+		flex: 2;
+	}
+}
+
+@media (max-width: 767px) {
+	body {
+		padding: 10px;
+	}
+
+	.container {
+		width: 100%;
+	}
+
+	.canvas-container {
+		padding: 10px;
+	}
+
+	#posterCanvas {
+		max-width: 100%;
+		height: auto;
+	}
+}
+
+::-webkit-scrollbar-track-piece {
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 6px;
+}
+
+::-webkit-scrollbar {
+	width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgba(255, 255, 255, 0.2);
+	border-radius: 6px;
+}
