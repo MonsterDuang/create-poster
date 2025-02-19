@@ -498,3 +498,5 @@ function stopDragging() {
 drawCanvas();
 updateCanvasSizeInputs();
 updateScaleIndicator();
+
+document.getElementById('currentYear').textContent = new Date().getFullYear();
