@@ -494,6 +494,11 @@ function stopDragging() {
 	resizeIndicator.style.display = 'none'; // 隐藏宽高指示器
 }
 
+// 在 colorPicker 中回显颜色
+colorPicker.addEventListener('input', () => {
+	colorPicker.style.backgroundColor = colorPicker.value; // 在 colorPicker 中回显颜色
+});
+
 // 初始化画布
 drawCanvas();
 updateCanvasSizeInputs();
